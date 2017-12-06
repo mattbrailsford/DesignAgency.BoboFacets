@@ -227,13 +227,13 @@ namespace DesignAgency.BoboFacets.Services
             };
 
             var queryStringKeys = querystring.Select(x => x.Key);
-            foreach (var facetField in FacetFields.Where(x => queryStringKeys.Contains(x.Alias.FacetFieldAlias())))
+            foreach (var facetField in FacetFields.Where(x => queryStringKeys.Contains(x.Alias)))
             {
-                var facetKvp = querystring.FirstOrDefault(x => x.Key == facetField.Alias.FacetFieldAlias());
+                var facetKvp = querystring.FirstOrDefault(x => x.Key == facetField.Alias);
                 var facetValues = facetKvp.Value?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 if (facetValues != null && facetValues.Length > 0)
                 {
-                    var sel = browseRequest.GetSelection(facetKvp.Key) ?? new BrowseSelection(facetKvp.Key);
+                    var sel = browseRequest.GetSelection(facetKvp.Key.FacetFieldAlias()) ?? new BrowseSelection(facetKvp.Key.FacetFieldAlias());
                     foreach (var facetValue in facetValues)
                     {
                         sel.AddValue(facetValue);
