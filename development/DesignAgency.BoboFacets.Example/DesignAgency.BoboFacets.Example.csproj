@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\UmbracoCms.7.7.4\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.7.7.4\build\UmbracoCms.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
@@ -357,7 +358,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesignAgency.BoboFacets\DesignAgency.BoboFacets.csproj">
-      <Project>{60c3dc4e-908f-4ed0-b4f2-672ac1977257}</Project>
+      <Project>{5da82d6c-32db-4a3e-a2cc-9b69a454fbdc}</Project>
       <Name>DesignAgency.BoboFacets</Name>
     </ProjectReference>
   </ItemGroup>

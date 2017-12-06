@@ -89,7 +89,7 @@ namespace DesignAgency.BoboFacets.Models
 
         public virtual Fieldable CreateIndexField(string fieldValue)
         {
-            return new Field(Alias.FacetFieldAlias(), fieldValue.Trim(), Field.Store.YES, Field.Index.NOT_ANALYZED);
+            return new Field(Alias.FacetFieldAlias(), fieldValue.Trim(), Field.Store.YES, Multivalue ? Field.Index.ANALYZED : Field.Index.NOT_ANALYZED);
         }
 
         public virtual string CreateValueLabel(string value)

@@ -198,7 +198,10 @@ namespace DesignAgency.BoboFacets.Services
             if(compiledQuery != null)
             {
                 var luceneParams = compiledQuery as LuceneSearchCriteria;
-                query = luceneParams?.Query ?? throw new ArgumentException("Provided ISearchCriteria dos not match the allowed ISearchCriteria. Ensure you only use an ISearchCriteria created from the current SearcherProvider");
+                query = luceneParams?.Query;
+                    
+                if (query == null)
+                    throw new ArgumentException("Provided ISearchCriteria dos not match the allowed ISearchCriteria. Ensure you only use an ISearchCriteria created from the current SearcherProvider");
             }
             
             var offset = 0;
@@ -222,15 +225,20 @@ namespace DesignAgency.BoboFacets.Services
                 FetchStoredFields = true,
                 Sort = DetermineSort(querystring)
             };
+
             var queryStringKeys = querystring.Select(x => x.Key);
             foreach (var facetField in FacetFields.Where(x => queryStringKeys.Contains(x.Alias.FacetFieldAlias())))
             {
                 var facetKvp = querystring.FirstOrDefault(x => x.Key == facetField.Alias.FacetFieldAlias());
-                var facetValue = facetKvp.Value;
-                if (!string.IsNullOrWhiteSpace(facetValue))
+                var facetValues = facetKvp.Value?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                if (facetValues != null && facetValues.Length > 0)
                 {
                     var sel = browseRequest.GetSelection(facetKvp.Key) ?? new BrowseSelection(facetKvp.Key);
-                    sel.AddValue(facetValue);
+                    foreach (var facetValue in facetValues)
+                    {
+                        sel.AddValue(facetValue);
+                    }
+
                     sel.SelectionOperation = facetField.SelectionOperation;
                     browseRequest.RemoveSelection(facetKvp.Key);
                     browseRequest.AddSelection(sel);
